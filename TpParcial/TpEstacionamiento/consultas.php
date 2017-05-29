@@ -26,6 +26,15 @@
         case 'logout':
             //FUNCION PARA LAS SESSIONES / COOKIES
             break;
+        case 'borrarEmpleado':
+            //borrar el empleado
+            break;
+        case 'agregarEmpleado':
+            //agregar empleado:
+            break;
+        case 'suspenderEmpleado':
+            //Suspender Empleado
+            break;
 
     }
 
