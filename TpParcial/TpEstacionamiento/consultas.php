@@ -17,7 +17,7 @@
             break;
         case 'login':
             $Auxiliar = $database->Query("SELECT `Contraseña` FROM `Usuarios` WHERE Usuarios.UsuarioEmpleado == $_POST['Usuario']");
-            if($Auxiliar == $_POST['Usuario'])
+            if($Auxiliar == $_POST['Contraseña'])
             {
                 $retorno = 1;
                 //FUNCION PARA LAS SESSIONES / COOKIES
