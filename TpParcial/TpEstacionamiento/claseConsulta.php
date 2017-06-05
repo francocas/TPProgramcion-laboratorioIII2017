@@ -21,7 +21,7 @@ class QueHago
             $idInforme = $database->Query("SELECT 'idInforme' FROM `informes` WHERE 1");
             $idInforme2 = $idInforme[count($idInforme)];
             
-            $Auxiliar = $database->Query("UPDATE `lugares` SET `FlagOcupado`= 1, `PatenteAuto` = $patenteAuto `idInforme` = $idInforme 2 WHERE lugares.id == $_POST['id']");
+            $Auxiliar = $database->Query("UPDATE `lugares` SET `FlagOcupado`= 1,`idInforme` = $idInforme 2 WHERE lugares.id == $_POST['id']");
     }
     public static function Salida($idLugar)
     {
