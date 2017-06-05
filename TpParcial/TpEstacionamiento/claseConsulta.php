@@ -17,7 +17,11 @@ class QueHago
     {
             
             $database->Query("INSERT INTO `informes` (`idLugar`, `PatenteAuto`, `ColorAuto`, `ModeloAuto`,`HorarioEntrada`,`HorarioSalida`,`UsuarioIngreso`,`UsuarioSalida`) VALUES $idLugar, $patenteAuto,$colorAuto,$modeloAuto,".date("j.G:i").",'','ElQueSea',''");
-            $Auxiliar = $database->Query("UPDATE `lugares` SET `FlagOcupado`= 1, `PatenteAuto` = $patenteAuto `idInforme` =  WHERE lugares.id == $_POST['id']");
+
+            $idInforme = $database->Query("SELECT 'idInforme' FROM `informes` WHERE 1");
+            $idInforme2 = $idInforme[count($idInforme)];
+            
+            $Auxiliar = $database->Query("UPDATE `lugares` SET `FlagOcupado`= 1, `PatenteAuto` = $patenteAuto `idInforme` = $idInforme 2 WHERE lugares.id == $_POST['id']");
     }
     public static function Salida($idLugar)
     {
