@@ -9,7 +9,7 @@ class QueHago
 
     public static function Listar($libre)
 	{
-        $Auxiliar = $database->Query("SELECT * FROM 'lugares' WHERE lugares.FlagOcupado == ".$libre);
+        $Auxiliar = $database->Query("SELECT * FROM 'lugares' WHERE lugares.FlagOcupado = ".$libre);
         return $Auxiliar;
     }
 
@@ -17,10 +17,8 @@ class QueHago
     {
             
             $database->Query("INSERT INTO `informes` (`idLugar`, `PatenteAuto`, `ColorAuto`, `ModeloAuto`,`HorarioEntrada`,`HorarioSalida`,`UsuarioIngreso`,`UsuarioSalida`) VALUES $idLugar, $patenteAuto,$colorAuto,$modeloAuto,".date("j.G:i").",'','ElQueSea',''");
-
-            $idInforme = $database->Query("SELECT 'idInforme' FROM `informes` WHERE 1");
             
-            $Auxiliar = $database->Query("UPDATE `lugares` SET `FlagOcupado`= 1 WHERE lugares.id == $idLugar");
+            $Auxiliar = $database->Query("UPDATE `lugares` SET `FlagOcupado`= 1 WHERE lugares.id = $idLugar");
     }
     public static function Salida($idLugar)
     {
