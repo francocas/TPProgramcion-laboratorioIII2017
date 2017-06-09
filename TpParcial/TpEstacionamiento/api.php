@@ -13,12 +13,22 @@ $app->get('/', function (Request $request, Response $response) {
     });
 
     $app->post('/Listar', function (Request $request, Response $response) {
-        $data = $request->getParsedBody();
+    $data = $request->getParsedBody();
     $listaDeAutos = QueHago::Listar($data['libre']);
     $response->getBody()->write("Hello, Hola mundo slim framework");
 
     return $response;
-});
+    });
+     $app->post('/Ingreso', function (Request $request, Response $response)
+     {
+        $data = $request->getParsedBody();
+        QueHago::Ingreso($data['idLugar'],$data['patenteAuto'],$data['colorAuto']);
+     }
+    $app->post('/Salida', function (Request $request, Response $response)
+     {
+        $data = $request->getParsedBody();
+        QueHago::Salida($data['idLugar']);
+     }
 $app->run(); 
 
 
