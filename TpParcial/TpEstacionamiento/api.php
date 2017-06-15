@@ -29,7 +29,7 @@ $app->get('/', function (Request $request, Response $response) {
         QueHago::Salida($data['idLugar']);
      }
 
-     $app->post('/Salida', function (Request $request, Response $response)
+     $app->post('/LogIn', function (Request $request, Response $response)
      {
         $data = $request->getParsedBody();
         QueHago::LogIn($data['usuario','contrasena']);
