@@ -16,7 +16,7 @@ $app->get('/', function (Request $request, Response $response) {
     $data = $request->getParsedBody();
     $listaDeAutos = QueHago::Listar($data['libre']);
     //$response->getBody()->write("Hello, Hola mundo slim framework");
-    return $response;
+    return $response->withJson($listaDeAutos);
     });
      $app->post('/Ingreso', function (Request $request, Response $response)
      {
