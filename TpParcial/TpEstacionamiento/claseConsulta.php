@@ -16,7 +16,7 @@ class QueHago
     public static function Ingreso($idLugar, $patenteAuto, $colorAuto, $modeloAuto)
     {
             
-            $database->Query("INSERT INTO `informes` (`idLugar`, `PatenteAuto`, `ColorAuto`, `ModeloAuto`,`HorarioEntrada`,`HorarioSalida`,`UsuarioIngreso`,`UsuarioSalida`) VALUES $idLugar, $patenteAuto,$colorAuto,$modeloAuto,".date("j.G:i").",'','ElQueSea',''");           
+            $database->Query("INSERT INTO `informes` (`idLugar`, `PatenteAuto`, `ColorAuto`, `ModeloAuto`,`HorarioEntrada`,`HorarioSalida`,`UsuarioIngreso`,`UsuarioSalida`) VALUES $idLugar, `$patenteAuto`,`$colorAuto`,`$modeloAuto`,`".date("j.G:i")."`,'','ElQueSea',''");           
             $Auxiliar = $database->Query("UPDATE `lugares` SET `FlagOcupado`= 1 WHERE lugares.id = $idLugar");
     }
     public static function Salida($idLugar)
@@ -26,5 +26,10 @@ class QueHago
         $Auxiliar2 = $database->Query("UPDATE `lugares` SET `FlagOcupado`= 0 WHERE lugares.id == $idLugar");
     }
 
+    public static function LogIn($usuario, $contrasena)
+    {
+        $aux = $database->Query("SELECT UsuarioEmpleado, Nivel FROM `Empleados` WHERE empleados.UsuarioEmpleado = '$usuario' AND `Contraseña` = '$contrasena' AND EmpleadoActivo = 1 AND Suspendido = 0" );
+        return $aux;
+    }
 }
 ?>

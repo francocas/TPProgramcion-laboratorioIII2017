@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-06-2017 a las 03:40:15
+-- Tiempo de generación: 15-06-2017 a las 14:26:55
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -32,6 +32,9 @@ CREATE TABLE `empleados` (
   `Nombre` varchar(20) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `Apellido` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `Contraseña` varchar(20) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `Nivel` tinyint(1) NOT NULL,
+  `EmpleadoActivo` tinyint(1) NOT NULL,
+  `Suspendido` tinyint(1) NOT NULL,
   `HorarioDeEntrada` varchar(10) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `HorarioDeSalida` varchar(10) COLLATE utf8mb4_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
@@ -40,8 +43,8 @@ CREATE TABLE `empleados` (
 -- Volcado de datos para la tabla `empleados`
 --
 
-INSERT INTO `empleados` (`id`, `UsuarioEmpleado`, `Nombre`, `Apellido`, `Contraseña`, `HorarioDeEntrada`, `HorarioDeSalida`) VALUES
-(1, 'Admin', 'Admin', 'Admin', 'Administrador123', '0', '0');
+INSERT INTO `empleados` (`id`, `UsuarioEmpleado`, `Nombre`, `Apellido`, `Contraseña`, `Nivel`, `EmpleadoActivo`, `Suspendido`, `HorarioDeEntrada`, `HorarioDeSalida`) VALUES
+(1, 'Admin', 'Admin', 'Admin', 'Administrador123', 1, 1, 0, '0', '0');
 
 -- --------------------------------------------------------
 
