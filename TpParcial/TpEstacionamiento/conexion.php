@@ -28,6 +28,8 @@ class DataBase
 	// Evita que el objeto se pueda clonar
 	public function __clone()
 	{
-		trigger_error('La clonaci&oacute;n de este objeto no est&aacute; permitida!!!', E_USER_ERROR);
+		trigger_error('La clonacion de este objeto no esta; permitida!!!', E_USER_ERROR);
 	}
+}
+
 ?>

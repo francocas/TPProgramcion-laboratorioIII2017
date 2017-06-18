@@ -3,6 +3,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 require 'claseConsulta.php';
 require 'vendor/autoload.php';
+
 $app = new \Slim\App;
 $app->get('/', function (Request $request, Response $response) {
     //$name = $request->getAttribute('name');
@@ -12,28 +13,26 @@ $app->get('/', function (Request $request, Response $response) {
     });
 
     $app->post('/Listar', function (Request $request, Response $response) {
-    //$data = $request->getParsedBody();
-    $hola = $request->getParsedBody();
-    QueHago::Listar($hola['libre']);
-    return '';
+    $data = $request->getParsedBody();
+    $listaDeAutos = QueHago::Listar($data['libre']);
     //$response->getBody()->write("Hello, Hola mundo slim framework");
-    //return $response->withJson($listaDeAutos);
+    return $response->withJson($listaDeAutos);
     });
      $app->post('/Ingreso', function (Request $request, Response $response)
      {
         $data = $request->getParsedBody();
-        var_dump($data);
-        //QueHago::Ingreso($data['idLugar'],$data['patenteAuto'],$data['colorAuto']);
+        QueHago::Ingreso($data['idLugar'],$data['patenteAuto'],$data['colorAuto']);
      });
     $app->post('/Salida', function (Request $request, Response $response)
      {
         $data = $request->getParsedBody();
         QueHago::Salida($data['idLugar']);
      });
-     $app->post('/LogIn', function (Request $request, Response $response){
-        $data = $request->getParsedBody();
+    $app->post('/LogIn', function (Request $request, Response $response)
+     {
+         $data = $request->getParsedBody();
         $hola = QueHago::LogIn($data['usuario'],$data['contrasena']);
         return $response->withJson($hola);
      });
-     $app->run();
+$app->run();
 ?>
