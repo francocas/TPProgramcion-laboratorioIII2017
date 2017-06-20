@@ -32,6 +32,7 @@ $app->add(function($req, $res, $next){
     });
 
     $app->group('/usuarios', function(){
+        $this->get('/', \MWLugares::class.':hola');
         $this->post('/LogIn', \MWUsuarios::class. ':LogIn');
         $this->get('/asd', \MWUsuarios::class. ':TraerTodosLosUsuarios');
      });

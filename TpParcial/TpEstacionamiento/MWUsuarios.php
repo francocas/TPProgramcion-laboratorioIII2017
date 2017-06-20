@@ -5,7 +5,9 @@ class MWUsuarios{
         $data = $request->getParsedBody();
         $nickYNivel = QueHago::LogIn($data['usuario'],$data['contrasena']);
         $token = autentificadorJwt::CrearToken($nickYNivel,3600);
-        $arrayARetornar = array("Token" => $token, "Nick" => $nickYNivel['UsuarioEmpleado'], "Nivel"=> $nickYNivel['Nivel']);
+        //$token = 'altogato';
+        //var_dump($nickYNivel);
+        $arrayARetornar = array("Token" => $token, "Nick" => $nickYNivel[0]['UsuarioEmpleado'], "Nivel"=> $nickYNivel[0]['Nivel']);
         return $response->withJson($arrayARetornar);
      }
 
