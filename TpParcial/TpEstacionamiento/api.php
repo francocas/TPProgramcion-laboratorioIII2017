@@ -4,27 +4,33 @@ use \Psr\Http\Message\ResponseInterface as Response;
 require 'claseConsulta.php';
 require 'vendor/autoload.php';
 $app = new \Slim\App;
-$app->get('/', function (Request $request, Response $response) {
-    //$name = $request->getAttribute('name');
-    $response->getBody()->write("Hello, name");
+$app->add(function($req, $res, $next){
+        $response = $next($req, $res);
+        return $response
+                ->withHeader('Access-Control-Allow-Origin','*')
+                ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type. Accept, Origin, Authorization')
+                ->withHeader('Access-Control-Allow-Methods','GET, POST, PUT, DELETE, OPTIONS')
+                ->withHeader('Content-Type','application/json; charset=utf-8');
+    });
 
-    return $response;
+    $app->get('/', function (Request $request, Response $response) {
+        //$name = $request->getAttribute('name');
+        $response->getBody()->write("Hello, name");
+        return $response;
     });
 
     $app->post('/Listar', function (Request $request, Response $response) {
-    //$data = $request->getParsedBody();
-    $hola = $request->getParsedBody();
-    QueHago::Listar($hola['libre']);
-    return '';
-    //$response->getBody()->write("Hello, Hola mundo slim framework");
-    //return $response->withJson($listaDeAutos);
+        $hola = $request->getParsedBody();
+        return $response->withJson(QueHago::Listar($hola['libre']));
     });
+
      $app->post('/Ingreso', function (Request $request, Response $response)
      {
         $data = $request->getParsedBody();
         var_dump($data);
         //QueHago::Ingreso($data['idLugar'],$data['patenteAuto'],$data['colorAuto']);
      });
+
     $app->post('/Salida', function (Request $request, Response $response)
      {
         $data = $request->getParsedBody();
