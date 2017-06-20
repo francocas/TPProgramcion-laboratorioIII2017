@@ -1,5 +1,6 @@
 <?php 
     require_once("conexion.php");
+    require_once("autentificadorJwt.php");
     $database = DataBase::Connect();
 class QueHago
 {
