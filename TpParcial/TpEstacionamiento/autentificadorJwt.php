@@ -34,8 +34,9 @@
             $decodificado = JWT::decode(
                 $token,
                 self::$claveSectreta,
-                self::$tipoEncriptacion
+                array(self::$tipoEncriptacion,'HS384')
                 );
+                //var_dump($decodificado);
 
         }
 

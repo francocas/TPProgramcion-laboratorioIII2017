@@ -1,5 +1,7 @@
 <?php 
 require_once 'claseConsulta.php';
+    use \Firebase\JWT\JWT;
+
 class MWUsuarios{
     public function LogIn ( $request, $response, $args){
         $data = $request->getParsedBody();
@@ -8,6 +10,7 @@ class MWUsuarios{
         //$token = 'altogato';
         //var_dump($nickYNivel);
         $arrayARetornar = array("Token" => $token, "Nick" => $nickYNivel[0]['UsuarioEmpleado'], "Nivel"=> $nickYNivel[0]['Nivel']);
+        //autentificadorJwt::VerificarToken($token);
         return $response->withJson($arrayARetornar);
      }
 
