@@ -36,7 +36,6 @@
                 self::$claveSectreta,
                 array(self::$tipoEncriptacion,'HS384')
                 );
-                //var_dump($decodificado);
 
         }
 

@@ -20,15 +20,10 @@ $app->add(function($req, $res, $next){
                 ->withHeader('Content-Type','application/json; charset=utf-8');
     });
     $app->group('/lugares', function(){
-
-    $this->get('/', \MWLugares::class.':hola');
-
-    $this->post('/Listar', \MWLugares::class.':Listar');
-
-    $this->post('/Ingreso', \MWLugares::class.':Ingreso');
-
-    $this->post('/Salida', \MWLugares::class.':Salida');
-
+            $this->get('/', \MWLugares::class.':hola');
+            $this->post('/Listar', \MWLugares::class.':Listar');
+            $this->post('/Ingreso', \MWLugares::class.':Ingreso');
+            $this->post('/Salida', \MWLugares::class.':Salida');
     });
 
     $app->group('/usuarios', function(){

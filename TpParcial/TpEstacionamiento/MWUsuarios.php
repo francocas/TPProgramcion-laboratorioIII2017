@@ -10,7 +10,7 @@ class MWUsuarios{
         //$token = 'altogato';
         //var_dump($nickYNivel);
         $arrayARetornar = array("Token" => $token, "Nick" => $nickYNivel[0]['UsuarioEmpleado'], "Nivel"=> $nickYNivel[0]['Nivel']);
-        //autentificadorJwt::VerificarToken($token);
+        autentificadorJwt::VerificarToken($token);
         return $response->withJson($arrayARetornar);
      }
 
