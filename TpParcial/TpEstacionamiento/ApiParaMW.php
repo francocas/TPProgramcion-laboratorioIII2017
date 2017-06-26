@@ -20,16 +20,17 @@ $app->add(function($req, $res, $next){
                 ->withHeader('Content-Type','application/json; charset=utf-8');
     });
     $app->group('/lugares', function(){
-            $this->get('/', \MWLugares::class.':hola');
+            //$this->get('/', \MWLugares::class.':hola');
             $this->post('/Listar', \MWLugares::class.':Listar');
             $this->post('/Ingreso', \MWLugares::class.':Ingreso');
             $this->post('/Salida', \MWLugares::class.':Salida');
     });
 
     $app->group('/usuarios', function(){
-        $this->get('/', \MWLugares::class.':hola');
+        //$this->get('/', \MWLugares::class.':hola');
         $this->post('/LogIn', \MWUsuarios::class. ':LogIn');
-        $this->get('/asd', \MWUsuarios::class. ':TraerTodosLosUsuarios');
+        //$this->post('/CargarFoto', \MWUsuarios::class. ':CargarFoto');
+        //$this->get('/asd', \MWUsuarios::class. ':TraerTodosLosUsuarios');
      });
      $app->run();
 ?>

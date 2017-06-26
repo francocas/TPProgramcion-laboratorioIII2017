@@ -18,6 +18,19 @@ class MWUsuarios{
      {
         return $response->withJson(QueHago::TraerTodosLosUsuarios());
      }
+
+    /* public function CargarFoto ( $request, $response, $args){
+        $files = $request->getUploadedFiles();
+        //move_uploaded_file($files['A']->file,"files/ignaAltoGato.jpg");
+        $nuevaFoto = $files['A'];
+        $oldName = $files['A']->getClientMediaType();
+        $oldName = explode('/',$oldName);
+        $file = $_FILES['archivo']['name'];
+        var_dump($nuevaFoto);
+        $path='files/';
+        $nuevaFoto->moveTo($path.'ignaSeLaCome'.'.'.$oldName[1]);*/
+
+     }
 }
 
 ?>
