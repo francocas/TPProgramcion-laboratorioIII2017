@@ -17,7 +17,7 @@ class DataBase
 	{
 		$obj=$this->_objetoPDO->prepare($sql);
 		$obj->execute();
-		return $obj->fetchAll();
+		return $obj->fetchAll(PDO::FETCH_ASSOC);
 	}
 	public static function Connect()//singleton
 	{
