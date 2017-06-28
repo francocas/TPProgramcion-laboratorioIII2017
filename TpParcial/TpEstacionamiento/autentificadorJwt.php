@@ -36,6 +36,7 @@
                 self::$claveSectreta,
                 array(self::$tipoEncriptacion,'HS384')
                 );
+                return $decodificado->data[0];
 
         }
 

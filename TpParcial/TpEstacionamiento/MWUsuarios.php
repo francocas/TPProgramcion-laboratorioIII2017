@@ -6,6 +6,11 @@ class MWUsuarios{
     public function LogIn ( $request, $response, $args){
         $data = $request->getParsedBody();
         $nickYNivel = QueHago::LogIn($data['usuario'],$data['contrasena']);
+        if($nickYNivel == null)
+        {
+            echo("Error");
+            return $response;
+        }
         $token = autentificadorJwt::CrearToken($nickYNivel,3600);
         //$token = 'altogato';
         //var_dump($nickYNivel);
@@ -18,8 +23,21 @@ class MWUsuarios{
      {
         return $response->withJson(QueHago::TraerTodosLosUsuarios());
      }
+     public function AgregarEmpleado($request, $response, $args){
+         $data = $request->getParsedBody();
+         $decodificado = autentificadorJwt::VerificarToken($data['token']);
+         if($decodificado->Nivel == 1)
+         {
+            QueHago::AgregarUsuario($data['UsuarioEmpleado'],$data['Nombre'],$data['Apellido'],$data['Contrasena'],$data['Nivel'],$data['Activo'],$data['Suspendido']);
+            echo('Todo piola');
+             }
+             else
+             {
+                 echo('No tenes permisos maquinola');
+             }
+     }
 
-     public function CargarFoto ( $request, $response, $args){
+    /* public function CargarFoto ( $request, $response, $args){
          
         $files = $request->getUploadedFiles();
         //move_uploaded_file($files['A']->file,"files/ignaAltoGato.jpg");
@@ -29,9 +47,9 @@ class MWUsuarios{
         //$file = $_FILES['archivo']['name'];
         var_dump($nuevaFoto);
         $path='files/';
-        $nuevaFoto->moveTo($path.'ignaSeLaCome'.'.'.$oldName[1]);
+        $nuevaFoto->moveTo($path.'asd'.'.'.$oldName[1]);
 
-     }
+     }*/
      
 }
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-06-2017 a las 14:26:55
+-- Tiempo de generación: 28-06-2017 a las 18:57:24
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -34,17 +34,16 @@ CREATE TABLE `empleados` (
   `Contraseña` varchar(20) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `Nivel` tinyint(1) NOT NULL,
   `EmpleadoActivo` tinyint(1) NOT NULL,
-  `Suspendido` tinyint(1) NOT NULL,
-  `HorarioDeEntrada` varchar(10) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `HorarioDeSalida` varchar(10) COLLATE utf8mb4_spanish2_ci NOT NULL
+  `Suspendido` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `empleados`
 --
 
-INSERT INTO `empleados` (`id`, `UsuarioEmpleado`, `Nombre`, `Apellido`, `Contraseña`, `Nivel`, `EmpleadoActivo`, `Suspendido`, `HorarioDeEntrada`, `HorarioDeSalida`) VALUES
-(1, 'Admin', 'Admin', 'Admin', 'Administrador123', 1, 1, 0, '0', '0');
+INSERT INTO `empleados` (`id`, `UsuarioEmpleado`, `Nombre`, `Apellido`, `Contraseña`, `Nivel`, `EmpleadoActivo`, `Suspendido`) VALUES
+(1, 'Admin', 'Admin', 'Admin', 'Administrador123', 1, 1, 0),
+(2, 'Batman', 'Bruce', 'Wayne', 'Baticueva', 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -84,7 +83,7 @@ CREATE TABLE `lugares` (
 --
 
 INSERT INTO `lugares` (`id`, `Piso`, `FlagOcupado`, `LugarEspecial`, `PatenteAuto`, `idInforme`) VALUES
-(1, 1, 0, 1, '', 0),
+(1, 1, 1, 1, 'ABC123', 1),
 (2, 1, 0, 1, '', 0),
 (3, 1, 0, 1, '', 0),
 (4, 1, 0, 0, '', 0),
@@ -133,7 +132,7 @@ ALTER TABLE `lugares`
 -- AUTO_INCREMENT de la tabla `empleados`
 --
 ALTER TABLE `empleados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `informes`
 --

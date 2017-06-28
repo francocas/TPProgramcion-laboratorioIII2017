@@ -48,5 +48,12 @@ class QueHago
         $Auxiliar = $database->Query("SELECT * FROM `informes` WHERE 1");
         return $Auxiliar;
     }
+
+    public static function AgregarUsuario($UsuarioEmpleado,$Nombre,$Apellido,$contraseña,$nivel, $activo, $suspendido)
+    {
+        $database = DataBase::Connect();
+        $Auxiliar = $database->Query("INSERT INTO `empleados`(`UsuarioEmpleado`, `Nombre`, `Apellido`, `Contraseña`, `Nivel`, `EmpleadoActivo`, `Suspendido`) VALUES ('$UsuarioEmpleado','$Nombre','$Apellido','$contraseña',$nivel,$activo,$suspendido)");
+        //return $Auxiliar;
+    }
 }
 ?>
