@@ -15,16 +15,18 @@ class QueHago
         return $Auxiliar;
     }
 
-    public static function Ingreso($idLugar, $patenteAuto, $colorAuto, $modeloAuto)
+    public static function Ingreso($idLugar, $patenteAuto, $colorAuto, $modeloAuto, $nombreUsuario)
     {
         $database = DataBase::Connect();
-        $database->Query("INSERT INTO `informes` (`idLugar`, `PatenteAuto`, `ColorAuto`, `ModeloAuto`,`HorarioEntrada`,`HorarioSalida`,`UsuarioIngreso`,`UsuarioSalida`) VALUES ($idLugar, '$patenteAuto','$colorAuto','$modeloAuto','','','ElQueSea','')");           
+        $horarioAccion = date("m:j:G:i");
+        $database->Query("INSERT INTO `informes` (`idLugar`, `PatenteAuto`, `ColorAuto`, `ModeloAuto`,`HorarioEntrada`,`HorarioSalida`,`UsuarioIngreso`,`UsuarioSalida`) VALUES ($idLugar, '$patenteAuto','$colorAuto','$modeloAuto','$horarioAccion','',' $nombreUsuario','')");           
         $Auxiliar = $database->Query("UPDATE `lugares` SET `FlagOcupado`= 1 ,`PatenteAuto` = '$patenteAuto' WHERE lugares.id = $idLugar");
     }
-    public static function Salida($idLugar)
+    public static function Salida($idLugar, $nombreUsuario)
     {
         $database = DataBase::Connect();
-        $Auxiliar = $database->Query("UPDATE `informes` SET `HorarioSalida` = '', `UsuarioSalida`= 'ElQueSea' WHERE informes.UsuarioSalida = '' AND informes.idLugar = $idLugar ");
+        $horarioAccion = date("m:j:G:i");
+        $Auxiliar = $database->Query("UPDATE `informes` SET `HorarioSalida` = '$horarioAccion', `UsuarioSalida`= '$nombreUsuario' WHERE informes.UsuarioSalida = '' AND informes.idLugar = $idLugar ");
         $Auxiliar2 = $database->Query("UPDATE `lugares` SET `FlagOcupado`= 0 WHERE lugares.id = $idLugar");
     }
 

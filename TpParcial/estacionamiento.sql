@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-06-2017 a las 18:57:24
+-- Tiempo de generación: 28-06-2017 a las 22:53:20
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -59,9 +59,16 @@ CREATE TABLE `informes` (
   `idInforme` int(11) NOT NULL,
   `HorarioEntrada` varchar(30) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `HorarioSalida` varchar(30) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `UsuarioIngreso` int(11) NOT NULL,
-  `UsuarioSalida` int(11) NOT NULL
+  `UsuarioIngreso` varchar(30) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `UsuarioSalida` varchar(30) COLLATE utf8mb4_spanish2_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `informes`
+--
+
+INSERT INTO `informes` (`idLugar`, `PatenteAuto`, `ColorAuto`, `ModeloAuto`, `idInforme`, `HorarioEntrada`, `HorarioSalida`, `UsuarioIngreso`, `UsuarioSalida`) VALUES
+(2, 'ABC123', 'Blanco', 'RenaultMeriva', 10, '06:28:22:52', '06:28:22:52', ' Batman', 'Batman');
 
 -- --------------------------------------------------------
 
@@ -74,33 +81,32 @@ CREATE TABLE `lugares` (
   `Piso` int(11) NOT NULL,
   `FlagOcupado` tinyint(1) NOT NULL,
   `LugarEspecial` tinyint(1) NOT NULL,
-  `PatenteAuto` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `idInforme` int(11) NOT NULL
+  `PatenteAuto` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `lugares`
 --
 
-INSERT INTO `lugares` (`id`, `Piso`, `FlagOcupado`, `LugarEspecial`, `PatenteAuto`, `idInforme`) VALUES
-(1, 1, 1, 1, 'ABC123', 1),
-(2, 1, 0, 1, '', 0),
-(3, 1, 0, 1, '', 0),
-(4, 1, 0, 0, '', 0),
-(5, 1, 0, 0, '', 0),
-(6, 1, 0, 0, '', 0),
-(7, 2, 0, 0, '', 0),
-(8, 2, 0, 0, '', 0),
-(9, 2, 0, 0, '', 0),
-(10, 2, 0, 0, '', 0),
-(11, 2, 0, 0, '', 0),
-(12, 2, 0, 0, '', 0),
-(13, 3, 0, 0, '', 0),
-(14, 3, 0, 0, '', 0),
-(15, 3, 0, 0, '', 0),
-(16, 3, 0, 0, '', 0),
-(17, 3, 0, 0, '', 0),
-(18, 3, 0, 0, '', 0);
+INSERT INTO `lugares` (`id`, `Piso`, `FlagOcupado`, `LugarEspecial`, `PatenteAuto`) VALUES
+(1, 1, 0, 1, 'ABC123'),
+(2, 1, 0, 1, 'ABC123'),
+(3, 1, 0, 1, ''),
+(4, 1, 0, 0, ''),
+(5, 1, 0, 0, ''),
+(6, 1, 0, 0, ''),
+(7, 2, 0, 0, ''),
+(8, 2, 0, 0, ''),
+(9, 2, 0, 0, ''),
+(10, 2, 0, 0, ''),
+(11, 2, 0, 0, ''),
+(12, 2, 0, 0, ''),
+(13, 3, 0, 0, ''),
+(14, 3, 0, 0, ''),
+(15, 3, 0, 0, ''),
+(16, 3, 0, 0, ''),
+(17, 3, 0, 0, ''),
+(18, 3, 0, 0, '');
 
 --
 -- Índices para tablas volcadas
@@ -137,7 +143,7 @@ ALTER TABLE `empleados`
 -- AUTO_INCREMENT de la tabla `informes`
 --
 ALTER TABLE `informes`
-  MODIFY `idInforme` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idInforme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `lugares`
 --
