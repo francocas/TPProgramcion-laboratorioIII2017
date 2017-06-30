@@ -1,12 +1,20 @@
-<?php 
+<?php
+/*$dsn = "mysql:dbname=u420678454_estac;host=mysql.hostinger.com.ar";
+$usuario = "u420678454_estac";
+$contraseña = "estacionamiento";
+*/
 class DataBase
 {
 	private static $_objetoDataBase;
+	
 	private $_objetoPDO;
 	private function __construct()
 	{
+		
 		try {
-			$this->_objetoPDO = new PDO('mysql:host=localhost;dbname=estacionamiento;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+			
+			$this->_objetoPDO = new PDO('mysql:host=mysql.hostinger.com.ar;dbname=u420678454_estac;charset=utf8', 'u420678454_estac', 'estacionamiento', array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+			//$this->_objetoPDO = new PDO($dsn, $usuario, $constraseña, array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 			$this->_objetoPDO->exec("SET CHARACTER SET utf8");
 		} catch (PDOException $e) {
 			print "Error!!!<br/>" . $e->getMessage();
@@ -18,6 +26,12 @@ class DataBase
 		$obj=$this->_objetoPDO->prepare($sql);
 		$obj->execute();
 		return $obj->fetchAll(PDO::FETCH_ASSOC);
+	}
+	public function QueryUpdate($sql)
+	{
+		$obj=$this->_objetoPDO->prepare($sql);
+		$obj->execute();
+		//return $obj->fetchAll(PDO::FETCH_ASSOC);
 	}
 	public static function Connect()//singleton
 	{

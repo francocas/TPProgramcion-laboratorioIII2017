@@ -30,6 +30,10 @@ $app->add(function($req, $res, $next){
         $this->get('/', \MWLugares::class.':hola');
         $this->post('/LogIn', \MWUsuarios::class. ':LogIn');
         $this->post('/AgregarEmpleado', \MWUsuarios::class. ':AgregarEmpleado');
+        $this->post('/SuspenderEmpleado', \MWUsuarios::class. ':SuspenderEmpleado');
+        $this->post('/ReintegrarEmpleado', \MWUsuarios::class. ':ReintegrarEmpleado');
+        $this->post('/EcharEmpleado', \MWUsuarios::class. ':EcharEmpleado');
+        $this->post('/RecontratarEmpleado', \MWUsuarios::class. ':RecontratarEmpleado');
         //$this->post('/CargarFoto', \MWUsuarios::class. ':CargarFoto');
         //$this->get('/asd', \MWUsuarios::class. ':TraerTodosLosUsuarios');
      });

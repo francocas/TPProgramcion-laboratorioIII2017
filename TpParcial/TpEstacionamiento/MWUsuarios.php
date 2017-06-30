@@ -20,21 +20,78 @@ class MWUsuarios{
      }
 
      public static function TraerTodosLosUsuarios($request, $response)
-     {
+    {
         return $response->withJson(QueHago::TraerTodosLosUsuarios());
-     }
+    }
+
      public function AgregarEmpleado($request, $response, $args){
-         $data = $request->getParsedBody();
-         $decodificado = autentificadorJwt::VerificarToken($data['token']);
-         if($decodificado->Nivel == 1)
-         {
+        $data = $request->getParsedBody();
+        $decodificado = autentificadorJwt::VerificarToken($data['token']);
+        if($decodificado->Nivel == 1)
+        {
             QueHago::AgregarUsuario($data['UsuarioEmpleado'],$data['Nombre'],$data['Apellido'],$data['Contrasena'],$data['Nivel'],$data['Activo'],$data['Suspendido']);
             echo('Todo piola');
-             }
-             else
-             {
-                 echo('No tenes permisos maquinola');
-             }
+        }
+        else
+        {
+            echo('No tenes permisos maquinola');
+        }
+     }
+
+     public function SuspenderEmpleado($request, $response, $args){
+        $data = $request->getParsedBody();
+        $decodificado = autentificadorJwt::VerificarToken($data['token']);
+        if($decodificado->Nivel == 1)
+        {
+            QueHago::SuspenderUsuario($data['idEmpleado']);
+            echo('Todo piola');
+        }
+        else
+        {
+            echo('No tenes permisos maquinola');
+        }
+     }
+
+     public function ReintegrarEmpleado($request, $response, $args){
+        $data = $request->getParsedBody();
+        $decodificado = autentificadorJwt::VerificarToken($data['token']);
+        if($decodificado->Nivel == 1)
+        {
+            QueHago::ReintegrarUsuario($data['idEmpleado']);
+            echo('Todo piola');
+        }
+        else
+        {
+            echo('No tenes permisos maquinola');
+        }
+     }
+
+     public function EcharEmpleado($request, $response, $args){
+        $data = $request->getParsedBody();
+        $decodificado = autentificadorJwt::VerificarToken($data['token']);
+        if($decodificado->Nivel == 1)
+        {
+            QueHago::EcharUsuario($data['idEmpleado']);
+            echo('Todo piola');
+        }
+        else
+        {
+            echo('No tenes permisos maquinola');
+        }
+     }
+
+     public function RecontratarEmpleado($request, $response, $args){
+        $data = $request->getParsedBody();
+        $decodificado = autentificadorJwt::VerificarToken($data['token']);
+        if($decodificado->Nivel == 1)
+        {
+            QueHago::RecontratarUsuario($data['idEmpleado']);
+            echo('Todo piola');
+        }
+        else
+        {
+            echo('No tenes permisos maquinola');
+        }
      }
 
     /* public function CargarFoto ( $request, $response, $args){
