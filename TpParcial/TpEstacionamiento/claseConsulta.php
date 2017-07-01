@@ -20,7 +20,7 @@ class QueHago
         $database = DataBase::Connect();
         $horarioAccion = date("m:j:G:i");
         $database->QueryUpdate("INSERT INTO `informes` (`idLugar`, `PatenteAuto`, `ColorAuto`, `ModeloAuto`,`HorarioEntrada`,`HorarioSalida`,`UsuarioIngreso`,`UsuarioSalida`) VALUES ($idLugar, '$patenteAuto','$colorAuto','$modeloAuto','$horarioAccion','',' $nombreUsuario','')");           
-        $Auxiliar = $database->QueryUpdate("UPDATE `lugares` SET `FlagOcupado`= 1 ,`PatenteAuto` = '$patenteAuto' WHERE lugares.id = $idLugar");
+        $Auxiliar = $database->QueryUpdate("UPDATE `lugares` SET `FlagOcupado`= 1 ,`PatenteAuto` = '$patenteAuto', `Usos` = Usos + 1 WHERE lugares.id = $idLugar");
     }
     public static function Salida($idLugar, $nombreUsuario)
     {
@@ -80,6 +80,27 @@ class QueHago
     {
         $database = DataBase::Connect();
         $Auxiliar = $database->QueryUpdate("UPDATE `empleados` SET `EmpleadoActivo`= 1 WHERE $idEmpleado = empleados.id");    
+    }
+
+    public static function TraerLugarMasUsado()
+    {
+        $database = DataBase::Connect();
+        $Auxiliar = $database->Query("SELECT id, Usos FROM `lugares` WHERE Usos = (SELECT MAX(Usos) FROM lugares WHERE 1)");    
+        return $Auxiliar;
+    }
+
+    public static function TraerLugarMenosUsado()
+    {
+        $database = DataBase::Connect();
+        $Auxiliar = $database->Query("SELECT id, Usos FROM `lugares` WHERE Usos = (SELECT MIN(Usos) FROM lugares WHERE 1)");    
+        return $Auxiliar;
+    }
+
+    public static function TraerLugarSinUsar()
+    {
+        $database = DataBase::Connect();
+        $Auxiliar = $database->Query("SELECT id FROM `lugares` WHERE Usos = 0");    
+        return $Auxiliar;
     }
 }
 ?>

@@ -24,10 +24,13 @@ $app->add(function($req, $res, $next){
             $this->post('/Listar', \MWLugares::class.':Listar');
             $this->post('/Ingreso', \MWLugares::class.':Ingreso');
             $this->post('/Salida', \MWLugares::class.':Salida');
+            $this->get('/LugarMenosUsado', \MWLugares::class.':LugarMenosUsado');
+            $this->get('/LugarMasUsado', \MWLugares::class.':LugarMasUsado');
+            $this->get('/LugarSinUsar', \MWLugares::class.':LugarSinUsar');
     });
 
     $app->group('/usuarios', function(){
-        $this->get('/', \MWLugares::class.':hola');
+        //$this->get('/', \MWLugares::class.':hola');
         $this->post('/LogIn', \MWUsuarios::class. ':LogIn');
         $this->post('/AgregarEmpleado', \MWUsuarios::class. ':AgregarEmpleado');
         $this->post('/SuspenderEmpleado', \MWUsuarios::class. ':SuspenderEmpleado');

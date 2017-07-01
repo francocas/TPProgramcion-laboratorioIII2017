@@ -51,6 +51,22 @@ class MWLugares
         }
         
      }
+
+     public function LugarMenosUsado($request,$response)
+     {
+        return $response->withJson(QueHago::TraerLugarMenosUsado());
+     }
+
+     public function LugarMasUsado($request,$response)
+     {
+         return $response->withJson(QueHago::TraerLugarMasUsado());
+     }
+
+
+     public function LugarSinUsar($request,$response)
+     {
+        return $response->withJson(QueHago::TraerLugarSinUsar());
+     }
 }
 
 
