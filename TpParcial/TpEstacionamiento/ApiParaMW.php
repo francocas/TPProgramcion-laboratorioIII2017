@@ -20,13 +20,15 @@ $app->add(function($req, $res, $next){
                 ->withHeader('Content-Type','application/json; charset=utf-8');
     });
     $app->group('/lugares', function(){
-            //$this->get('/', \MWLugares::class.':hola');
-            $this->post('/Listar', \MWLugares::class.':Listar');
-            $this->post('/Ingreso', \MWLugares::class.':Ingreso');
-            $this->post('/Salida', \MWLugares::class.':Salida');
-            $this->get('/LugarMenosUsado', \MWLugares::class.':LugarMenosUsado');
-            $this->get('/LugarMasUsado', \MWLugares::class.':LugarMasUsado');
-            $this->get('/LugarSinUsar', \MWLugares::class.':LugarSinUsar');
+        //$this->get('/', \MWLugares::class.':hola');
+        $this->post('/Listar', \MWLugares::class.':Listar');
+        $this->post('/Ingreso', \MWLugares::class.':Ingreso');
+        $this->post('/Salida', \MWLugares::class.':Salida');
+        $this->post('/LugarMenosUsado', \MWLugares::class.':LugarMenosUsado');
+        $this->post('/LugarMasUsado', \MWLugares::class.':LugarMasUsado');
+        $this->post('/LugarSinUsar', \MWLugares::class.':LugarSinUsar');
+        $this->post('/TraerInformesPorFecha', \MWLugares::class. ':TraerInformesPorFecha');
+            
     });
 
     $app->group('/usuarios', function(){
@@ -37,6 +39,8 @@ $app->add(function($req, $res, $next){
         $this->post('/ReintegrarEmpleado', \MWUsuarios::class. ':ReintegrarEmpleado');
         $this->post('/EcharEmpleado', \MWUsuarios::class. ':EcharEmpleado');
         $this->post('/RecontratarEmpleado', \MWUsuarios::class. ':RecontratarEmpleado');
+        $this->post('/TraerTodosLosLogeos', \MWUsuarios::class. ':TraerTodosLosLogeos');
+       
         //$this->post('/CargarFoto', \MWUsuarios::class. ':CargarFoto');
         //$this->get('/asd', \MWUsuarios::class. ':TraerTodosLosUsuarios');
      });

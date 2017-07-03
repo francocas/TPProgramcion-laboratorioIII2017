@@ -10,29 +10,54 @@ class MWLugares
     }
     public function Listar($request, $response, $args) {
         $data = $request->getParsedBody();
-        $decodificado = autentificadorJwt::VerificarToken($data['token']);
-        if($decodificado != null)
-        {
-            return $response->withJson(QueHago::Listar($data['libre']));
+        $decodificado = '';
+        try{
+            $decodificado = autentificadorJwt::VerificarToken($data['token']);
         }
-        else
+        catch(Exception $e)
         {
-            echo('No tenes permisos maquinola');
+            return $response->getBody()->write('Token invalido');
+        }
+        try{
+            if($decodificado != null)
+            {
+                //QueHago::ContarOperaciones($decodificado->id);
+                return $response->withJson(QueHago::Listar($data['libre']));
+            }
+            else
+            {
+                return $response->getBody()->write('No tenes permisos maquinola');
+            }
+        }
+        catch(Exception $e){
+            return $response->getBody()->write($e);
         }
     }
 
     public function Ingreso($request, $response, $args)
      {
         $data = $request->getParsedBody();
-        $decodificado = autentificadorJwt::VerificarToken($data['token']);
-        //var_dump($decodificado);
-        if($decodificado != null)
-        {
-            QueHago::Ingreso($data['idLugar'],$data['patenteAuto'],$data['colorAuto'], $data['modeloAuto'], $decodificado->UsuarioEmpleado);
+        $decodificado = '';
+        try{
+            $decodificado = autentificadorJwt::VerificarToken($data['token']);
         }
-        else
+        catch(Exception $e)
         {
-            echo('No tenes permisos maquinola');
+            return $response->getBody()->write('Token invalido');
+        }
+        try{
+            if($decodificado != null)
+            {
+                QueHago::ContarOperaciones($decodificado->id);
+                QueHago::Ingreso($data['idLugar'],$data['patenteAuto'],$data['colorAuto'], $data['modeloAuto'], $decodificado->UsuarioEmpleado);
+            }
+            else
+            {
+                return $response->getBody()->write('No tenes permisos maquinola');
+            }
+        }
+        catch(Exception $e){
+            return $response->getBody()->write($e);
         }
         
      }
@@ -40,32 +65,138 @@ class MWLugares
      public function Salida($request, $response, $args)
      {
         $data = $request->getParsedBody();
-        $decodificado = autentificadorJwt::VerificarToken($data['token']);
-        if($decodificado != null)
-        {
-            QueHago::Salida($data['idLugar'],$decodificado->UsuarioEmpleado);
+        $decodificado = '';
+        try{
+            $decodificado = autentificadorJwt::VerificarToken($data['token']);
         }
-        else
+        catch(Exception $e)
         {
-            echo('No tenes permisos maquinola');
+            return $response->getBody()->write('Token invalido');
+        }
+        try{
+            if($decodificado != null)
+            {
+                QueHago::ContarOperaciones($decodificado->id);
+                QueHago::Salida($data['idLugar'],$decodificado->UsuarioEmpleado);
+            }
+            else
+            {
+                return $response->getBody()->write('No tenes permisos maquinola');
+            }
+        }
+        catch(Exception $e){
+            return $response->getBody()->write($e);
         }
         
      }
 
-     public function LugarMenosUsado($request,$response)
+     public function LugarMenosUsado($request, $response, $args)
      {
-        return $response->withJson(QueHago::TraerLugarMenosUsado());
+        $data = $request->getParsedBody();
+        $decodificado = '';
+        try{
+            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+        }
+        catch(Exception $e)
+        {
+            return $response->getBody()->write('Token invalido');
+        }
+        try{
+            if($decodificado != null and $decodificado->Nivel == 1)
+            {
+                return $response->withJson(QueHago::TraerLugarMenosUsado());
+            }
+            else
+            {
+                return $response->getBody()->write('No tenes permisos maquinola');
+            }
+        }
+        catch(Exception $e){
+            return $response->getBody()->write($e);
+        }
+        
      }
 
-     public function LugarMasUsado($request,$response)
+     public function LugarMasUsado($request, $response, $args)
      {
-         return $response->withJson(QueHago::TraerLugarMasUsado());
+        $data = $request->getParsedBody();
+        $decodificado = "";
+        try{
+            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+        }
+        catch(Exception $e)
+        {
+            return $response->getBody()->write('Token invalido');
+        }
+        try{
+            if($decodificado != null and $decodificado->Nivel == 1)
+            {
+                return $response->withJson(QueHago::TraerLugarMasUsado());
+            }
+            else
+            {
+                return $response->getBody()->write('No tenes permisos maquinola');
+            }
+        }
+        catch(Exception $e){
+            return $response->getBody()->write($e);
+        }
      }
 
 
-     public function LugarSinUsar($request,$response)
+     public function LugarSinUsar($request, $response, $args)
      {
-        return $response->withJson(QueHago::TraerLugarSinUsar());
+        $data = $request->getParsedBody();
+        $decodificado = "";
+        try{
+            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+        }
+        catch(Exception $e)
+        {
+            return $response->getBody()->write('Token invalido');
+        }
+        try{
+            if($decodificado != null and $decodificado->Nivel == 1)
+            {
+                return $response->withJson(QueHago::TraerLugarSinUsar());
+            }
+            else
+            {
+                return $response->getBody()->write('No tenes permisos maquinola');
+            }
+        }
+        catch(Exception $e)
+        {
+            return $response->getBody()->write($e);
+        }
+     }
+
+     public function TraerInformesPorFecha($request, $response, $args)
+     {
+        $data = $request->getParsedBody();
+        $decodificado = "";
+        try
+        {
+            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+        }
+        catch(Exception $e)
+        {
+            return $response->getBody()->write('Token invalido');
+        }
+        try{
+            if($decodificado != null )
+            {
+                return $response->withJson(QueHago::TraerInformesPorFecha($data['fecha1'], $data['fecha2']));
+            }
+            else
+            {
+                return $response->getBody()->write('No tenes permisos maquinola');
+            }
+        }
+        catch(Exception $e)
+        {
+            return $response->getBody()->write($e);
+        }
      }
 }
 

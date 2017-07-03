@@ -5,92 +5,183 @@ require_once 'claseConsulta.php';
 class MWUsuarios{
     public function LogIn ( $request, $response, $args){
         $data = $request->getParsedBody();
+        try{
         $nickYNivel = QueHago::LogIn($data['usuario'],$data['contrasena']);
+        $idUsuario = QueHago::TraerIDUsuario($data['usuario'],$data['contrasena']);
         if($nickYNivel == null)
         {
-            echo("Error");
-            return $response;
+            return $response->getBody()->write("Error");    
         }
+        QueHago::AgregarLogeo($idUsuario[0]['id']);
         $token = autentificadorJwt::CrearToken($nickYNivel,3600);
-        //$token = 'altogato';
-        //var_dump($nickYNivel);
         $arrayARetornar = array("Token" => $token, "Nick" => $nickYNivel[0]['UsuarioEmpleado'], "Nivel"=> $nickYNivel[0]['Nivel']);
-        autentificadorJwt::VerificarToken($token);
+        $decodificado = autentificadorJwt::VerificarToken($token);
         return $response->withJson($arrayARetornar);
+        }
+        catch(Exception $e)
+        {
+            return $response->getBody()->write($e);
+        }
      }
 
      public static function TraerTodosLosUsuarios($request, $response)
     {
         return $response->withJson(QueHago::TraerTodosLosUsuarios());
     }
+    public static function TraerTodosLosLogeos($request, $response)
+    {
+        $data = $request->getParsedBody();
+        try{
+            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+        }
+        catch(Exception $e)
+        {
+            return $response->getBody()->write('Token invalido');
+        }
+        try{
+        
+        if($decodificado->Nivel == 1)
+        {
+            return $response->withJson(QueHago::TraerTodosLosLogeos());
+            }
+            else
+            {
+                return $response->getBody()->write('No tenes permisos maquinola');
+            }
+        }
+        catch(Exception $e){
+            return $response->getBody()->write($e);
+        }
+        
+    }
 
      public function AgregarEmpleado($request, $response, $args){
         $data = $request->getParsedBody();
-        $decodificado = autentificadorJwt::VerificarToken($data['token']);
+        $decodificado = '';
+        try{
+            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+        }
+        catch(Exception $e)
+        {
+            return $response->getBody()->write('Token invalido');
+        }
+        try{
         if($decodificado->Nivel == 1)
         {
             QueHago::AgregarUsuario($data['UsuarioEmpleado'],$data['Nombre'],$data['Apellido'],$data['Contrasena'],$data['Nivel'],$data['Activo'],$data['Suspendido']);
-            echo('Todo piola');
+            return $response->getBody()->write('Todo piola');
+            }
+            else
+            {
+                return $response->getBody()->write('No tenes permisos maquinola');
+            }
         }
-        else
-        {
-            echo('No tenes permisos maquinola');
+        catch(Exception $e){
+            return $response->getBody()->write($e);
         }
      }
 
      public function SuspenderEmpleado($request, $response, $args){
         $data = $request->getParsedBody();
-        $decodificado = autentificadorJwt::VerificarToken($data['token']);
-        if($decodificado->Nivel == 1)
-        {
-            QueHago::SuspenderUsuario($data['idEmpleado']);
-            echo('Todo piola');
+        $decodificado = '';
+        try{
+            $decodificado = autentificadorJwt::VerificarToken($data['token']);
         }
-        else
+        catch(Exception $e)
         {
-            echo('No tenes permisos maquinola');
+            return $response->getBody()->write('Token invalido');
+        }
+        try{
+            if($decodificado->Nivel == 1)
+            {
+                QueHago::SuspenderUsuario($data['idEmpleado']);
+                return $response->getBody()->write('Todo piola');
+            }
+            else
+            {
+                return $response->getBody()->write('No tenes permisos maquinola');
+            }
+        }
+        catch(Exception $e){
+            return $response->getBody()->write($e);
         }
      }
 
      public function ReintegrarEmpleado($request, $response, $args){
         $data = $request->getParsedBody();
-        $decodificado = autentificadorJwt::VerificarToken($data['token']);
-        if($decodificado->Nivel == 1)
-        {
-            QueHago::ReintegrarUsuario($data['idEmpleado']);
-            echo('Todo piola');
+        $decodificado = '';
+        try{
+            $decodificado = autentificadorJwt::VerificarToken($data['token']);
         }
-        else
+        catch(Exception $e)
         {
-            echo('No tenes permisos maquinola');
+            return $response->getBody()->write('Token invalido');
+        }
+        try{
+            if($decodificado->Nivel == 1)
+            {
+                QueHago::ReintegrarUsuario($data['idEmpleado']);
+                return $response->getBody()->write('Todo piola');
+            }
+            else
+            {
+                return $response->getBody()->write('No tenes permisos maquinola');
+            }
+        }
+        catch(Exception $e){
+            return $response->getBody()->write($e);
         }
      }
 
      public function EcharEmpleado($request, $response, $args){
         $data = $request->getParsedBody();
-        $decodificado = autentificadorJwt::VerificarToken($data['token']);
-        if($decodificado->Nivel == 1)
-        {
-            QueHago::EcharUsuario($data['idEmpleado']);
-            echo('Todo piola');
+        $decodificado = '';
+        try{
+            $decodificado = autentificadorJwt::VerificarToken($data['token']);
         }
-        else
+        catch(Exception $e)
         {
-            echo('No tenes permisos maquinola');
+            return $response->getBody()->write('Token invalido');
+        }
+        try{
+            if($decodificado->Nivel == 1)
+            {
+                QueHago::EcharUsuario($data['idEmpleado']);
+                return $response->getBody()->write('Todo piola');
+            }
+            else
+            {
+                return $response->getBody()->write('No tenes permisos maquinola');
+            }
+        }
+        catch(Exception $e){
+            return $response->getBody()->write($e);
         }
      }
 
      public function RecontratarEmpleado($request, $response, $args){
         $data = $request->getParsedBody();
-        $decodificado = autentificadorJwt::VerificarToken($data['token']);
-        if($decodificado->Nivel == 1)
-        {
-            QueHago::RecontratarUsuario($data['idEmpleado']);
-            echo('Todo piola');
+        $decodificado = '';
+        try{
+            $decodificado = autentificadorJwt::VerificarToken($data['token']);
         }
-        else
+        catch(Exception $e)
         {
-            echo('No tenes permisos maquinola');
+            return $response->getBody()->write('Token invalido');
+        }
+        try{
+            if($decodificado->Nivel == 1)
+            {
+                QueHago::RecontratarUsuario($data['idEmpleado']);
+                return $response->getBody()->write('Todo piola');
+            }
+            else
+            {
+                return $response->getBody()->write('No tenes permisos maquinola');
+            }
+        }
+        catch(Exception $e){
+            return $response->getBody()->write($e);
         }
      }
 
