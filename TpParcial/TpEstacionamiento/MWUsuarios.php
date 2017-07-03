@@ -20,7 +20,7 @@ class MWUsuarios{
         }
         catch(Exception $e)
         {
-            return $response->getBody()->write($e);
+            return $response->getBody()->write("Error");
         }
      }
 
@@ -50,7 +50,7 @@ class MWUsuarios{
             }
         }
         catch(Exception $e){
-            return $response->getBody()->write($e);
+            return $response->getBody()->write("Error");
         }
         
     }
@@ -77,7 +77,7 @@ class MWUsuarios{
             }
         }
         catch(Exception $e){
-            return $response->getBody()->write($e);
+            return $response->getBody()->write("Error");
         }
      }
 
@@ -95,7 +95,7 @@ class MWUsuarios{
             if($decodificado->Nivel == 1)
             {
                 QueHago::SuspenderUsuario($data['idEmpleado']);
-                return $response->getBody()->write('Todo piola');
+                return $response->getBody()->write('Empleado Suspendido');
             }
             else
             {
@@ -103,7 +103,7 @@ class MWUsuarios{
             }
         }
         catch(Exception $e){
-            return $response->getBody()->write($e);
+            return $response->getBody()->write('Error');
         }
      }
 
@@ -121,7 +121,7 @@ class MWUsuarios{
             if($decodificado->Nivel == 1)
             {
                 QueHago::ReintegrarUsuario($data['idEmpleado']);
-                return $response->getBody()->write('Todo piola');
+                return $response->getBody()->write('Empleado Reincorporado');
             }
             else
             {
@@ -129,7 +129,7 @@ class MWUsuarios{
             }
         }
         catch(Exception $e){
-            return $response->getBody()->write($e);
+            return $response->getBody()->write("Error");
         }
      }
 
@@ -147,7 +147,7 @@ class MWUsuarios{
             if($decodificado->Nivel == 1)
             {
                 QueHago::EcharUsuario($data['idEmpleado']);
-                return $response->getBody()->write('Todo piola');
+                return $response->getBody()->write('Empleado Echado');
             }
             else
             {
@@ -155,7 +155,7 @@ class MWUsuarios{
             }
         }
         catch(Exception $e){
-            return $response->getBody()->write($e);
+            return $response->getBody()->write("Error");
         }
      }
 
@@ -173,7 +173,7 @@ class MWUsuarios{
             if($decodificado->Nivel == 1)
             {
                 QueHago::RecontratarUsuario($data['idEmpleado']);
-                return $response->getBody()->write('Todo piola');
+                return $response->getBody()->write('Empleado Recontratado');
             }
             else
             {
@@ -181,7 +181,7 @@ class MWUsuarios{
             }
         }
         catch(Exception $e){
-            return $response->getBody()->write($e);
+            return $response->getBody()->write("Error");
         }
      }
 

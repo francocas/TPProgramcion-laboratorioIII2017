@@ -30,7 +30,7 @@ class MWLugares
             }
         }
         catch(Exception $e){
-            return $response->getBody()->write($e);
+            return $response->getBody()->write("Error");
         }
     }
 
@@ -57,7 +57,7 @@ class MWLugares
             }
         }
         catch(Exception $e){
-            return $response->getBody()->write($e);
+            return $response->getBody()->write("Error");
         }
         
      }
@@ -85,7 +85,7 @@ class MWLugares
             }
         }
         catch(Exception $e){
-            return $response->getBody()->write($e);
+            return $response->getBody()->write("Error");
         }
         
      }
@@ -112,7 +112,7 @@ class MWLugares
             }
         }
         catch(Exception $e){
-            return $response->getBody()->write($e);
+            return $response->getBody()->write("Error");
         }
         
      }
@@ -139,7 +139,7 @@ class MWLugares
             }
         }
         catch(Exception $e){
-            return $response->getBody()->write($e);
+            return $response->getBody()->write("Error");
         }
      }
 
@@ -195,7 +195,7 @@ class MWLugares
         }
         catch(Exception $e)
         {
-            return $response->getBody()->write($e);
+            return $response->getBody()->write("Error");
         }
      }
 }

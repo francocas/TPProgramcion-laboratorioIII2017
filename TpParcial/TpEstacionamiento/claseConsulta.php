@@ -62,27 +62,61 @@ class QueHago
     public static function SuspenderUsuario($idEmpleado)
     {
         $database = DataBase::Connect();
-        $Auxiliar = $database->QueryUpdate("UPDATE `empleados` SET `Suspendido`= 1 WHERE $idEmpleado = empleados.id");    
+        $aux = $database->Query("SELECT * FROM `empleados` WHERE $idEmpleado = empleados.id AND empleados.Suspendido =0");
+        if($aux != null)
+        {
+            //$Auxiliar = $database->QueryUpdate("UPDATE `empleados` SET `Suspendido`= 1 WHERE $idEmpleado = empleados.id");
+        }
+        else
+        {
+            throw new Exception();
+        }
     }
 
     public static function ReintegrarUsuario($idEmpleado)
     {
         $database = DataBase::Connect();
-        $Auxiliar = $database->QueryUpdate("UPDATE `empleados` SET `Suspendido`= 0 WHERE $idEmpleado = empleados.id");    
+        $aux = $database->Query("SELECT * FROM `empleados` WHERE $idEmpleado = empleados.id AND empleados.Suspendido = 1");
+        if($aux != null)
+        {
+            $Auxiliar = $database->QueryUpdate("UPDATE `empleados` SET `Suspendido`= 0 WHERE $idEmpleado = empleados.id");
+        }
+        else
+        {
+            throw new Exception();
+        }
     }
 
     public static function EcharUsuario($idEmpleado)
     {
         $database = DataBase::Connect();
-        $Auxiliar = $database->QueryUpdate("UPDATE `empleados` SET `EmpleadoActivo`= 0 WHERE $idEmpleado = empleados.id");    
+        $database = DataBase::Connect();
+        $aux = $database->Query("SELECT * FROM `empleados` WHERE $idEmpleado = empleados.id AND empleados.EmpleadoActivo = 1");
+        if($aux != null)
+        {
+            $Auxiliar = $database->QueryUpdate("UPDATE `empleados` SET `EmpleadoActivo`= 0 WHERE $idEmpleado = empleados.id");    
+        }
+        else
+        {
+            throw new Exception();
+        }
+        
     }
 
     public static function RecontratarUsuario($idEmpleado)
     {
+         $database = DataBase::Connect();
         $database = DataBase::Connect();
-        $Auxiliar = $database->QueryUpdate("UPDATE `empleados` SET `EmpleadoActivo`= 1 WHERE $idEmpleado = empleados.id");    
+        $aux = $database->Query("SELECT * FROM `empleados` WHERE $idEmpleado = empleados.id AND empleados.EmpleadoActivo = 0");
+        if($aux != null)
+        {
+            $Auxiliar = $database->QueryUpdate("UPDATE `empleados` SET `EmpleadoActivo`= 1 WHERE $idEmpleado = empleados.id");    
+        }
+        else
+        {
+            throw new Exception();
+        }
     }
-
     public static function TraerLugarMasUsado()
     {
         $database = DataBase::Connect();
