@@ -6,11 +6,18 @@ class MWUsuarios{
     public function LogIn ( $request, $response, $args){
         $data = $request->getParsedBody();
         try{
-        $nickYNivel = QueHago::LogIn($data['usuario'],$data['contrasena']);
-        $idUsuario = QueHago::TraerIDUsuario($data['usuario'],$data['contrasena']);
+            if(isset($data['usuario']) && isset($data['contrasena']) && $data['contrasena'] != '' && $data['usuario'] != '')
+            {
+                $nickYNivel = QueHago::LogIn($data['usuario'],$data['contrasena']);
+                $idUsuario = QueHago::TraerIDUsuario($data['usuario'],$data['contrasena']);
+            }
+            else
+            {
+                return $response->getBody()->write("No ingresaste datos");    
+            }
         if($nickYNivel == null)
         {
-            return $response->getBody()->write("Error");    
+            return $response->getBody()->write("Datos Invalidos");    
         }
         QueHago::AgregarLogeo($idUsuario[0]['id']);
         $token = autentificadorJwt::CrearToken($nickYNivel,3600);
@@ -32,7 +39,14 @@ class MWUsuarios{
     {
         $data = $request->getParsedBody();
         try{
-            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+             if(isset($data['token']) && $data['token'] != '')
+            {
+                $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            }
+            else
+            {   
+                return $response->getBody()->write("Error, logeate y reintenta");
+            }    
         }
         catch(Exception $e)
         {
@@ -59,7 +73,14 @@ class MWUsuarios{
         $data = $request->getParsedBody();
         $decodificado = '';
         try{
-            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+             if(isset($data['token']) && $data['token'] != '')
+            {
+                $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            }
+            else
+            {   
+                return $response->getBody()->write("Error, logeate y reintenta");
+            }       
         }
         catch(Exception $e)
         {
@@ -68,13 +89,20 @@ class MWUsuarios{
         try{
         if($decodificado->Nivel == 1)
         {
-            QueHago::AgregarUsuario($data['UsuarioEmpleado'],$data['Nombre'],$data['Apellido'],$data['Contrasena'],$data['Nivel'],$data['Activo'],$data['Suspendido']);
-            return $response->getBody()->write('Todo piola');
+            if(isset($data['UsuarioEmpleado']) && isset($data['Nombre']) && isset($data['Apellido']) && isset($data['Contrasena']) && isset($data['Nivel']) && isset($data['Activo']) && isset($data['Suspendido']) && $data['UsuarioEmpleado'] != '' && $data['Nombre'] != '' && $data['Apellido'] != ''  && $data['Contrasena'] != '' && $data['Nivel'] != '' && $data['Activo'] != '' && $data['Suspendido'] != '')
+            {
+                QueHago::AgregarUsuario($data['UsuarioEmpleado'],$data['Nombre'],$data['Apellido'],$data['Contrasena'],$data['Nivel'],$data['Activo'],$data['Suspendido']);
+                return $response->getBody()->write('Todo piola');
             }
             else
             {
-                return $response->getBody()->write('No tenes permisos maquinola');
+                return $response->getBody()->write("No cargaste algun/os Dato/s");
             }
+        }
+        else
+        {
+            return $response->getBody()->write('No tenes permisos maquinola');
+        }
         }
         catch(Exception $e){
             return $response->getBody()->write("Error");
@@ -85,7 +113,15 @@ class MWUsuarios{
         $data = $request->getParsedBody();
         $decodificado = '';
         try{
-            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            if(isset($data['token']) && $data['token'] != '')
+            {
+                $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            }
+            else
+            {   
+                return $response->getBody()->write("Error, logeate y reintenta");
+            }
+                
         }
         catch(Exception $e)
         {
@@ -94,8 +130,15 @@ class MWUsuarios{
         try{
             if($decodificado->Nivel == 1)
             {
-                QueHago::SuspenderUsuario($data['idEmpleado']);
-                return $response->getBody()->write('Empleado Suspendido');
+                if(isset($data['idEmpleado']) && $data['idEmpleado'] != '')
+                {
+                    QueHago::SuspenderUsuario($data['idEmpleado']);
+                    return $response->getBody()->write('Empleado Suspendido');
+                }
+                else
+                {
+                   return $response->getBody()->write("No cargaste los datos");
+                }
             }
             else
             {
@@ -111,7 +154,14 @@ class MWUsuarios{
         $data = $request->getParsedBody();
         $decodificado = '';
         try{
-            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            if(isset($data['token']) && $data['token'] != '')
+            {
+                $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            }
+            else
+            {
+                return $response->getBody()->write("Error, logeate y reintenta");
+            }
         }
         catch(Exception $e)
         {
@@ -120,8 +170,15 @@ class MWUsuarios{
         try{
             if($decodificado->Nivel == 1)
             {
-                QueHago::ReintegrarUsuario($data['idEmpleado']);
-                return $response->getBody()->write('Empleado Reincorporado');
+                if(isset($data['idEmpleado']) && $data['idEmpleado'] != '')
+                {
+                    QueHago::ReintegrarUsuario($data['idEmpleado']);
+                    return $response->getBody()->write('Empleado Reincorporado');
+                }
+                else
+                {
+                    return $response->getBody()->write("No cargaste los datos");
+                }
             }
             else
             {
@@ -129,7 +186,7 @@ class MWUsuarios{
             }
         }
         catch(Exception $e){
-            return $response->getBody()->write("Error");
+            return $response->getBody()->write("Error 3");
         }
      }
 
@@ -137,7 +194,14 @@ class MWUsuarios{
         $data = $request->getParsedBody();
         $decodificado = '';
         try{
-            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            if(isset($data['token']) && $data['token'] != '')
+            {
+                $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            }
+            else
+            {
+                return $response->getBody()->write("Error, logeate y reintenta");
+            }
         }
         catch(Exception $e)
         {
@@ -146,8 +210,15 @@ class MWUsuarios{
         try{
             if($decodificado->Nivel == 1)
             {
-                QueHago::EcharUsuario($data['idEmpleado']);
-                return $response->getBody()->write('Empleado Echado');
+                if(isset($data['idEmpleado']) && $data['idEmpleado'] != '')
+                {
+                    QueHago::EcharUsuario($data['idEmpleado']);
+                    return $response->getBody()->write('Empleado Echado');
+                }
+                else
+                {
+                    return $response->getBody()->write("No cargaste los datos");
+                }
             }
             else
             {
@@ -155,7 +226,7 @@ class MWUsuarios{
             }
         }
         catch(Exception $e){
-            return $response->getBody()->write("Error");
+            return $response->getBody()->write("Error 3");
         }
      }
 
@@ -163,7 +234,14 @@ class MWUsuarios{
         $data = $request->getParsedBody();
         $decodificado = '';
         try{
-            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            if(isset($data['token']) && $data['token'] != '')
+            {
+                $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            }
+            else
+            {
+                return $response->getBody()->write("Error, logeate y reintenta");
+            }
         }
         catch(Exception $e)
         {
@@ -172,8 +250,15 @@ class MWUsuarios{
         try{
             if($decodificado->Nivel == 1)
             {
-                QueHago::RecontratarUsuario($data['idEmpleado']);
-                return $response->getBody()->write('Empleado Recontratado');
+                if(isset($data['idEmpleado']) && $data['idEmpleado'] != '')
+                {
+                    QueHago::RecontratarUsuario($data['idEmpleado']);
+                    return $response->getBody()->write('Empleado Recontratado');
+                }
+                else
+                {
+                    return $response->getBody()->write("No cargaste los datos");
+                }
             }
             else
             {
@@ -181,7 +266,7 @@ class MWUsuarios{
             }
         }
         catch(Exception $e){
-            return $response->getBody()->write("Error");
+            return $response->getBody()->write("Error 3");
         }
      }
 

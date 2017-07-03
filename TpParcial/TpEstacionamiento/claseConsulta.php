@@ -18,7 +18,7 @@ class QueHago
     public static function Ingreso($idLugar, $patenteAuto, $colorAuto, $modeloAuto, $nombreUsuario)
     {
         $database = DataBase::Connect();
-        $fecha = date('y-m-d');
+        $fecha = date('d-m-y');
         $horarioAccion = date("y/m/d-G:i");
         $database->QueryUpdate("INSERT INTO `informes` (`idLugar`, `PatenteAuto`, `ColorAuto`, `ModeloAuto`,`HorarioEntrada`,`HorarioSalida`,`Fecha`,`UsuarioIngreso`,`UsuarioSalida`) VALUES ($idLugar, '$patenteAuto','$colorAuto','$modeloAuto','$horarioAccion','','$fecha',' $nombreUsuario','')");           
         $Auxiliar = $database->QueryUpdate("UPDATE `lugares` SET `FlagOcupado`= 1 ,`PatenteAuto` = '$patenteAuto', `Usos` = Usos + 1 WHERE lugares.id = $idLugar");
@@ -27,7 +27,7 @@ class QueHago
     {
         $database = DataBase::Connect();
         $horarioAccion = date("y/m/d-G:i");
-        $Auxiliar = $database->QueryUpdate("UPDATE `informes` SET `HorarioSalida` = '$horarioAccion', `UsuarioSalida`= '$nombreUsuario',  WHERE informes.UsuarioSalida = '' AND informes.idLugar = $idLugar ");
+        $Auxiliar = $database->QueryUpdate("UPDATE `informes` SET `HorarioSalida` = '$horarioAccion', `UsuarioSalida`= '$nombreUsuario'  WHERE informes.UsuarioSalida = '' AND informes.idLugar = $idLugar ");
         $Auxiliar2 = $database->QueryUpdate("UPDATE `lugares` SET `FlagOcupado`= 0 WHERE lugares.id = $idLugar");
     }
 
@@ -65,7 +65,7 @@ class QueHago
         $aux = $database->Query("SELECT * FROM `empleados` WHERE $idEmpleado = empleados.id AND empleados.Suspendido =0");
         if($aux != null)
         {
-            //$Auxiliar = $database->QueryUpdate("UPDATE `empleados` SET `Suspendido`= 1 WHERE $idEmpleado = empleados.id");
+            $Auxiliar = $database->QueryUpdate("UPDATE `empleados` SET `Suspendido`= 1 WHERE $idEmpleado = empleados.id");
         }
         else
         {

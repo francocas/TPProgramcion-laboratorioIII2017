@@ -12,7 +12,14 @@ class MWLugares
         $data = $request->getParsedBody();
         $decodificado = '';
         try{
-            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            if(isset($data['token']) && $data['token'] != '')
+            {
+                $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            }
+            else
+            {   
+                return $response->getBody()->write("Error, logeate y reintenta");
+            }    
         }
         catch(Exception $e)
         {
@@ -21,8 +28,15 @@ class MWLugares
         try{
             if($decodificado != null)
             {
-                //QueHago::ContarOperaciones($decodificado->id);
-                return $response->withJson(QueHago::Listar($data['libre']));
+                if(isset($data['libre']) && $data['libre'] != '')
+                {
+                    //QueHago::ContarOperaciones($decodificado->id);
+                    return $response->withJson(QueHago::Listar($data['libre']));
+                }
+                else
+                {   
+                    return $response->getBody()->write("No ingresaste datos");
+                }   
             }
             else
             {
@@ -39,7 +53,14 @@ class MWLugares
         $data = $request->getParsedBody();
         $decodificado = '';
         try{
-            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            if(isset($data['token']) && $data['token'] != '')
+            {
+                $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            }
+            else
+            {   
+                return $response->getBody()->write("Error, logeate y reintenta");
+            }   
         }
         catch(Exception $e)
         {
@@ -48,8 +69,15 @@ class MWLugares
         try{
             if($decodificado != null)
             {
-                QueHago::ContarOperaciones($decodificado->id);
-                QueHago::Ingreso($data['idLugar'],$data['patenteAuto'],$data['colorAuto'], $data['modeloAuto'], $decodificado->UsuarioEmpleado);
+                if(isset($data['idLugar']) && isset($data['patenteAuto']) && isset($data['colorAuto']) && isset($data['modeloAuto']) && $data['idLugar'] != '' && $data['patenteAuto'] != '' && $data['colorAuto'] != '' && $data['modeloAuto']!= '')
+                {
+                    QueHago::ContarOperaciones($decodificado->id);
+                    QueHago::Ingreso($data['idLugar'],$data['patenteAuto'],$data['colorAuto'], $data['modeloAuto'], $decodificado->UsuarioEmpleado);
+                }
+                else
+                {   
+                    return $response->getBody()->write("No ingresaste datos");
+                }   
             }
             else
             {
@@ -67,7 +95,14 @@ class MWLugares
         $data = $request->getParsedBody();
         $decodificado = '';
         try{
-            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            if(isset($data['token']) && $data['token'] != '')
+            {
+                $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            }
+            else
+            {   
+                return $response->getBody()->write("Error, logeate y reintenta");
+            }   
         }
         catch(Exception $e)
         {
@@ -76,8 +111,15 @@ class MWLugares
         try{
             if($decodificado != null)
             {
-                QueHago::ContarOperaciones($decodificado->id);
-                QueHago::Salida($data['idLugar'],$decodificado->UsuarioEmpleado);
+                if(isset($data['idLugar']) && $data['idLugar'] != '')
+                {
+                    QueHago::ContarOperaciones($decodificado->id);
+                    QueHago::Salida($data['idLugar'],$decodificado->UsuarioEmpleado);
+                }
+                else
+                {   
+                    return $response->getBody()->write("No ingresaste los datos");
+                } 
             }
             else
             {
@@ -95,14 +137,21 @@ class MWLugares
         $data = $request->getParsedBody();
         $decodificado = '';
         try{
-            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            if(isset($data['token']) && $data['token'] != '')
+            {
+                $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            }
+            else
+            {   
+                return $response->getBody()->write("Error, logeate y reintenta");
+            }   
         }
         catch(Exception $e)
         {
             return $response->getBody()->write('Token invalido');
         }
         try{
-            if($decodificado != null and $decodificado->Nivel == 1)
+            if($decodificado != null && $decodificado->Nivel == 1)
             {
                 return $response->withJson(QueHago::TraerLugarMenosUsado());
             }
@@ -122,7 +171,14 @@ class MWLugares
         $data = $request->getParsedBody();
         $decodificado = "";
         try{
-            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            if(isset($data['token']) && $data['token'] != '')
+            {
+                $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            }
+            else
+            {   
+                return $response->getBody()->write("Error, logeate y reintenta");
+            }   
         }
         catch(Exception $e)
         {
@@ -149,7 +205,14 @@ class MWLugares
         $data = $request->getParsedBody();
         $decodificado = "";
         try{
-            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            if(isset($data['token']) && $data['token'] != '')
+            {
+                $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            }
+            else
+            {   
+                return $response->getBody()->write("Error, logeate y reintenta");
+            }   
         }
         catch(Exception $e)
         {
@@ -177,7 +240,14 @@ class MWLugares
         $decodificado = "";
         try
         {
-            $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            if(isset($data['token']) && $data['token'] != '')
+            {
+                $decodificado = autentificadorJwt::VerificarToken($data['token']);
+            }
+            else
+            {   
+                return $response->getBody()->write("Error, logeate y reintenta");
+            }   
         }
         catch(Exception $e)
         {
@@ -186,7 +256,14 @@ class MWLugares
         try{
             if($decodificado != null )
             {
-                return $response->withJson(QueHago::TraerInformesPorFecha($data['fecha1'], $data['fecha2']));
+                if(isset($data['fecha1']) && isset($data['fecha2']) && $data['fecha1'] != '' && $data['fecha2'] != '')
+                {
+                    return $response->withJson(QueHago::TraerInformesPorFecha($data['fecha1'], $data['fecha2']));
+                }
+                else
+                {   
+                    return $response->getBody()->write("No ingresaste los datos");
+                }   
             }
             else
             {
